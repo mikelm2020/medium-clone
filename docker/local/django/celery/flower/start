@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+exec celery -A authors_api.celery flower --address=0.0.0.0 --port=5555 --basic_auth="${CELERY_FLOWER_USER}:${CELERY_FLOWER_PASSWORD}" -b "${CELERY_BROKER}"
