@@ -9,6 +9,20 @@ from .managers import CustomUserManager
 
 
 class User(AbstractUser, PermissionsMixin):
+    username = models.CharField(
+        _("username"),
+        max_length=150,
+        unique=False,  # Haz que no sea único
+        blank=True,  # Permite que esté en blanco
+        null=True,  # Permite que sea nulo en la base de datos
+        help_text=_(
+            "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+        ),
+        error_messages={
+            "unique": _("A user with that username already exists."),
+        },
+    )
+
     pkid = models.BigAutoField(primary_key=True, editable=False)
     id = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     first_name = models.CharField(verbose_name=_("First name"), max_length=50)
