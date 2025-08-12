@@ -6,6 +6,9 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
+import core_apps
+import core_apps.profiles
+import core_apps.profiles.urls
 from core_apps.users.views import CustomUserDetailsView
 
 schema_view = get_schema_view(
@@ -31,6 +34,7 @@ urlpatterns = [
         PasswordResetConfirmView.as_view(),
         name="password_reset_confirm",
     ),
+    path("api/v1/profiles/", include(core_apps.profiles.urls)),
 ]
 
 admin.site.site_header = "Authors Haven API Admin"
